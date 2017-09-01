@@ -4,6 +4,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var salesinvoice = require('./api/sales-invoice/invoice');
 var customerpayment = require ('./api/customer-payment/payment');
+var service = require ('./api/sale-invoice-service/servicetype');
+var dependencies=require ('./api/dependencies/ACT-retrieve');
 var app = express();
 
 app.use(bodyParser.json());
@@ -12,6 +14,8 @@ app.use(cookieParser());
 
 app.use('/',salesinvoice);
 app.use('/customerpayment',customerpayment);
+app.use('/service',service);
+app.use('/dependecies',dependencies);
 
 
 app.use(function(req, res, next){
