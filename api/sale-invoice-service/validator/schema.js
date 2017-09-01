@@ -16,7 +16,57 @@ var create_invoice_schema = {
 
                                                       }
                                                   }
-                      }
+                      },
+
+                      Lines: [{
+                    type : "object",
+                    "required": ["TaxCode", "name"],
+                        properties: {
+                                Total:   {
+                                  type: "string",
+                                  required:true
+
+                                },
+                                Type:   {
+                                  type: "string",
+                                  required:true
+
+                                },
+                                Description:   {
+                                  type: "string",
+                                  required:true
+
+                                },
+
+                                TaxCode: {
+                                              type: "object",
+                                              required:true,
+                                              properties: {
+                                                            UID: {
+                                                                type: 'string',
+                                                                  required: true
+                                                                  }
+
+                                                          }
+                                                        },
+                                  Account: {
+                                              type: "object",
+                                              required:true,
+                                              properties: {
+                                                            UID: {
+                                                                type: 'string',
+                                                                  required: true
+                                                                  }
+
+                                                          }
+                                                        }
+                                    }
+
+
+
+
+
+                      }]
 
               }
 }

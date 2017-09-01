@@ -12,26 +12,34 @@ var router = express.Router();
 
 
 
-router.get('/load',function(req, res) {
+router.get('/load/:cid',function(req, res) {
 
 
-
+var cid = req.params.cid;
 
 
   // create request objects
   var requests = [{
-    url: ' http://localhost:8080/AccountRight/21e9fddb-dce0-4582-a12c-07cf18b1a4ff//GeneralLedger/Account/',
+    url:"http://"+constants.myob_ip+":"+constants.myob_port+"/AccountRight/"+cid+"/GeneralLedger/Account/",
     headers: {
       'Authorization': constants.auth,
       'x-myobapi-version':constants.myobv
     }
   }, {
-    url: ' http://localhost:8080/AccountRight/21e9fddb-dce0-4582-a12c-07cf18b1a4ff/Customer/',
+    url:"http://"+constants.myob_ip+":"+constants.myob_port+"/AccountRight/"+cid+"/Customer/",
     headers: {
       'Authorization': constants.auth,
       'x-myobapi-version':constants.myobv
     }
-  }];
+  },
+  {
+    url:"http://"+constants.myob_ip+":"+constants.myob_port+"/AccountRight/"+cid+"/GeneralLedger/TaxCode",
+    headers: {
+      'Authorization': constants.auth,
+      'x-myobapi-version':constants.myobv
+    }
+  }
+];
   async.map(requests, function(obj, callback) {
     // iterator function
     request(obj, function(error, response, body) {
@@ -48,11 +56,15 @@ router.get('/load',function(req, res) {
     if (err) {
       // handle your error
     } else {
+      var response = '{"Account":' +JSON.stringify(results[0]) +',"customer":' +JSON.stringify(results[1]) +',"taxcode":' +JSON.stringify(results[2]) +'}';
 
-      console.log(results);
-      res.send(results);
 
-    
+
+
+      //console.log(results);
+      res.send(JSON.parse(response));
+
+
     }
   });
 
