@@ -11,10 +11,10 @@ var validate = require('express-jsonschema').validate;
 
 
 
-router.post('/service/new/:cid',validate({body: schema.create_invoice_schema}),function(req, res) {
+router.post('/new/:cid',validate({body: schema.create_invoice_schema}),function(req, res) {
     var cid = req.params.cid;
-
-  console.log("Request body: "+requestBody);
+  var requestBody = JSON.stringify(req.body);
+  //console.log("Request body: "+requestBody);
     var options = { headers: {
       'Authorization': constants.auth,
       'x-myobapi-version':constants.myobv
