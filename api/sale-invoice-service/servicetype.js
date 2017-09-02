@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+var request = require('request');
+var express = require('express');
+var config = require('config');
+var router = express.Router();
+=======
 
 var request = require('request');
 var express = require('express');
@@ -8,6 +14,7 @@ var t =       require('tcomb-validation');
 var schema =  require('../../api/sale-invoice-service/validator/schema');
 
 var validate = require('express-jsonschema').validate;
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
 
 // Retrieve all invoices for a given company
 router.get('/list/:cid', function(req, res) {
@@ -34,10 +41,17 @@ router.get('/single/:cid/:id', function(req, res) {
     var cid = req.params.cid;
     var id = req.params.id;
     var options = { headers: {
+<<<<<<< HEAD
+        'Authorization': config.get('myob.accessToken'),
+        'x-myobapi-version': config.get('myob.api-version')
+    },
+     url:  config.get('myob.host')+"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"?format=json"
+=======
         'Authorization': 'Basic QWRtaW5pc3RyYXRvcjo=',
         'x-myobapi-version':'v2'
     },
      url: "http://"+constants.myob_ip+":"+constants.myob_port+"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"?format=json"
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
     }
     request.get(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
@@ -51,15 +65,26 @@ router.get('/single/:cid/:id', function(req, res) {
 })
 
 // Create a Invoice
+<<<<<<< HEAD
+router.post('/new/:cid',function(req, res) {
+=======
 router.post('/new/:cid',validate({body: schema.create_invoice_schema}),function(req, res) {
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
     var cid = req.params.cid;
   var requestBody = JSON.stringify(req.body);
   console.log("Request body: "+requestBody);
     var options = { headers: {
+<<<<<<< HEAD
+        'Authorization': config.get('myob.accessToken'),
+        'x-myobapi-version': config.get('myob.api-version')
+    },
+        url:  config.get('myob.host')+"/AccountRight/"+cid+"/Sale/Invoice/Service?format=json",
+=======
       'Authorization': constants.auth,
       'x-myobapi-version' :constants.myobv
     },
         url: "http://"+constants.myob_ip+":"+constants.myob_port+"/AccountRight/"+cid+"/Sale/Invoice/Service?format=json",
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
         body: requestBody
     }
     request.post(options, function(error, response, body) {
@@ -82,10 +107,17 @@ router.put('/update/:cid/:id', function(req, res) {
     var requestBody = JSON.stringify(req.body);
     console.log("Request body: "+requestBody);
     var options = { headers: {
+<<<<<<< HEAD
+        'Authorization': config.get('myob.accessToken'),
+        'x-myobapi-version': config.get('myob.api-version')
+    },
+        url: config.get('myob.host')+"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"/?format=json",
+=======
         'Authorization': 'Basic QWRtaW5pc3RyYXRvcjo=',
         'x-myobapi-version':'v2'
     },
         url: "http://"+constants.myob_ip+":"+constants.myob_port+"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"/?format=json",
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
         body: requestBody
     }
     request.post(options, function(error, response, body) {

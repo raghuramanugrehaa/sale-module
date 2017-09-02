@@ -4,7 +4,11 @@
  * Module dependencies.
  */
 
+<<<<<<< HEAD
+var app = require('../server/server');
+=======
 var app = require('../app');
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
 var debug = require('debug')('shopo:server');
 var http = require('http');
 

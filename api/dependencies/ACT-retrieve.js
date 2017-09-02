@@ -1,3 +1,31 @@
+<<<<<<< HEAD
+var request = require('request');
+var express = require('express');
+var router = express.Router();
+var config = require('config');
+var async = require("async");
+
+router.get('/load/:cid',function(req, res) {
+  var cid = req.params.cid;
+  var requests = [{
+    url : config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/Account/",
+    headers: {
+        'Authorization': config.get('myob.accessToken'),
+        'x-myobapi-version': config.get('myob.api-version')
+    }
+  }, {
+    url:config.get('myob.host') +"/AccountRight/"+cid+"/Customer/",
+    headers: {
+        'Authorization': config.get('myob.accessToken'),
+        'x-myobapi-version': config.get('myob.api-version')
+    }
+  },
+  {
+    url: config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/TaxCode",
+    headers: {
+        'Authorization': config.get('myob.accessToken'),
+        'x-myobapi-version': config.get('myob.api-version')
+=======
 
 var request = require('request');
 var express = require('express');
@@ -37,12 +65,17 @@ var cid = req.params.cid;
     headers: {
       'Authorization': constants.auth,
       'x-myobapi-version':constants.myobv
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
     }
   }
 ];
   async.map(requests, function(obj, callback) {
+<<<<<<< HEAD
+      request(obj, function(error, response, body) {
+=======
     // iterator function
     request(obj, function(error, response, body) {
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
       if (!error && response.statusCode == 200) {
         // transform data here or pass it on
         var body = JSON.parse(body);
@@ -57,6 +90,9 @@ var cid = req.params.cid;
       // handle your error
     } else {
       var response = '{"Account":' +JSON.stringify(results[0]) +',"customer":' +JSON.stringify(results[1]) +',"taxcode":' +JSON.stringify(results[2]) +'}';
+<<<<<<< HEAD
+      res.send(JSON.parse(response));
+=======
 
 
 
@@ -65,12 +101,16 @@ var cid = req.params.cid;
       res.send(JSON.parse(response));
 
 
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
     }
   });
 
 
 });
 
+<<<<<<< HEAD
+module.exports=router;
+=======
 
 
 module.exports=router;
@@ -129,3 +169,4 @@ module.exports=router;
 
 })
 */
+>>>>>>> 5d53c70cb943196ab8d8268c4e936b8d748a01e6
