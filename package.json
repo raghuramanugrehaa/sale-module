@@ -1,7 +1,7 @@
 {
-  "name": "sales",
+  "name": "Sales Module",
   "version": "1.0.0",
-  "description": "",
+  "description": "Service that helps to create Sale Invoices and its Customer Paymnets",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
