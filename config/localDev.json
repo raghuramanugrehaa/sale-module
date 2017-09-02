@@ -3,7 +3,7 @@
 		"host": "http://localhost:8080/",
 		"header": {
 			"accessToken": "Basic QWRtaW5pc3RyYXRvcjo=",
-			"myob-api-version": "v2"
+			"api-version": "v2"
 		}
 	}
 }
