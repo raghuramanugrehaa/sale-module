@@ -1,5 +1,5 @@
 {
-  "name": "Sales Module",
+  "name": "SalesModule",
   "version": "1.0.0",
   "description": "Service that helps to create Sale Invoices and its Customer Payments",
   "main": "index.js",
