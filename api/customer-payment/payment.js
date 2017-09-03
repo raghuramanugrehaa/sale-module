@@ -7,9 +7,9 @@ var config = require('config');
 router.get('/invoicelist/:cid', function(req, res) {
     var cid = req.params.cid;
     var options = { headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    },
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      },
         url: config.get('myob.host') +"/AccountRight/"+cid+"/sale/CustomerPayment?format=json"
     }
     request.get(options, function(error, response, body) {
@@ -29,9 +29,9 @@ router.get('/invoice/:cid/:id', function(req, res) {
     var cid = req.params.cid;
     var id = req.params.id;
     var options = { headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    },
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      },
      url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/CustomerPayment/"+id+"?format=json"
     }
     request.get(options, function(error, response, body) {
@@ -51,9 +51,9 @@ router.post('/invoice/new/:cid', function(req, res) {
     var requestBody = JSON.stringify(req.body);
     console.log("Request body: "+requestBody);
     var options = { headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    },
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      },
         url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/CustomerPayment?format=json",
         body: requestBody
     }
@@ -72,9 +72,9 @@ router.delete('/invoice/:cid/:id', function(req, res) {
     var cid = req.params.cid;
     console.log("Request param id: "+id);
     var options = { headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    },
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      },
        url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/CustomerPayment/"+id+"?format=json"
     }
     request.delete(options, function(error, response, body) {

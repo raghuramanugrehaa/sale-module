@@ -7,9 +7,9 @@ var router = express.Router();
 router.get('/list/:cid', function(req, res) {
     var cid = req.params.cid;
     var options = { headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    },
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      },
         url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service?format=json"
     }
     request.get(options, function(error, response, body) {
@@ -27,9 +27,9 @@ router.get('/single/:cid/:id', function(req, res) {
     var cid = req.params.cid;
     var id = req.params.id;
     var options = { headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    },
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      },
      url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"?format=json"
     }
     request.get(options, function(error, response, body) {
@@ -48,9 +48,9 @@ router.post('/new/:cid',function(req, res) {
     var cid = req.params.cid;
     var requestBody = JSON.stringify(req.body);
     var options = { headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    },
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      },
         url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service?format=json",
         body: requestBody
     }
@@ -70,9 +70,9 @@ router.put('/update/:cid/:id', function(req, res) {
     var cid = req.params.cid;
     var requestBody = JSON.stringify(req.body);
     var options = { headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    },
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      },
         url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"/?format=json",
         body: requestBody
     }

@@ -10,22 +10,22 @@ router.get('/load/:cid',function(req, res) {
   var requests = [{
     url:config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/Account/",
     headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    }
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      }
   }, {
     url:config.get('myob.host') +"/AccountRight/"+cid+"/Customer/",
     headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    }
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      }
   },
   {
     url:config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/TaxCode",
     headers: {
-        'Authorization': config.get('myob.accessToken'),
-        'x-myobapi-version': config.get('myob.api-version')
-    }
+        'Authorization': config.get('myob.header.accessToken'),
+        'x-myobapi-version': config.get('myob.header.api-version')
+      }
   }
 ];
   async.map(requests, function(obj, callback) {
