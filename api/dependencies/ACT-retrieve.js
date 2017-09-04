@@ -3,29 +3,17 @@ var express = require('express');
 var router = express.Router();
 var async = require("async");
 var config = require('config');
-
-router.get('/load/:cid',function(req, res) {
+var head=require('../../utils/utils');
+router.get('/:cid',function(req, res) {
   var cid = req.params.cid;
   // create request objects
   var requests = [{
-    url:config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/Account/",
-    headers: {
-        'Authorization': config.get('myob.header.accessToken'),
-        'x-myobapi-version': config.get('myob.header.api-version')
-      }
+    url:config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/Account/",  head
   }, {
-    url:config.get('myob.host') +"/AccountRight/"+cid+"/Customer/",
-    headers: {
-        'Authorization': config.get('myob.header.accessToken'),
-        'x-myobapi-version': config.get('myob.header.api-version')
-      }
+    url:config.get('myob.host') +"/AccountRight/"+cid+"/Customer/",head
   },
   {
-    url:config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/TaxCode",
-    headers: {
-        'Authorization': config.get('myob.header.accessToken'),
-        'x-myobapi-version': config.get('myob.header.api-version')
-      }
+    url:config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/TaxCode",head
   }
 ];
   async.map(requests, function(obj, callback) {

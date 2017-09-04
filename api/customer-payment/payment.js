@@ -2,16 +2,15 @@ var request = require('request');
 var express = require('express');
 var router = express.Router();
 var config = require('config');
-
+var head=require('../../utils/utils');
 // gets the list of all the invoice that are having status opened of a company
-router.get('/invoicelist/:cid', function(req, res) {
+
+router.get('/:cid/customerPayments', function(req, res) {
     var cid = req.params.cid;
-    var options = { headers: {
-        'Authorization': config.get('myob.header.accessToken'),
-        'x-myobapi-version': config.get('myob.header.api-version')
-      },
+    var options = { headers:head,
         url: config.get('myob.host') +"/AccountRight/"+cid+"/sale/CustomerPayment?format=json"
     }
+
     request.get(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
         if (!error && response.statusCode == 200) {
@@ -25,13 +24,10 @@ router.get('/invoicelist/:cid', function(req, res) {
 })
 
 //gets total details of a invoice
-router.get('/invoice/:cid/:id', function(req, res) {
+router.get('/:cid/customerPayments/:id', function(req, res) {
     var cid = req.params.cid;
     var id = req.params.id;
-    var options = { headers: {
-        'Authorization': config.get('myob.header.accessToken'),
-        'x-myobapi-version': config.get('myob.header.api-version')
-      },
+    var options = { headers: head,
      url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/CustomerPayment/"+id+"?format=json"
     }
     request.get(options, function(error, response, body) {
@@ -46,14 +42,11 @@ router.get('/invoice/:cid/:id', function(req, res) {
     });
 })
 
-router.post('/invoice/new/:cid', function(req, res) {
+router.post('/:cid/customerPayments', function(req, res) {
     var cid = req.params.cid;
     var requestBody = JSON.stringify(req.body);
     console.log("Request body: "+requestBody);
-    var options = { headers: {
-        'Authorization': config.get('myob.header.accessToken'),
-        'x-myobapi-version': config.get('myob.header.api-version')
-      },
+    var options = { headers:head,
         url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/CustomerPayment?format=json",
         body: requestBody
     }
@@ -67,14 +60,11 @@ router.post('/invoice/new/:cid', function(req, res) {
     });
 })
 
-router.delete('/invoice/:cid/:id', function(req, res) {
+router.delete('/:cid/customerPayments/:id', function(req, res) {
     var id = req.params.id;
     var cid = req.params.cid;
     console.log("Request param id: "+id);
-    var options = { headers: {
-        'Authorization': config.get('myob.header.accessToken'),
-        'x-myobapi-version': config.get('myob.header.api-version')
-      },
+    var options = { headers:head,
        url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/CustomerPayment/"+id+"?format=json"
     }
     request.delete(options, function(error, response, body) {

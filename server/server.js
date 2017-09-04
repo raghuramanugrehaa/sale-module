@@ -10,9 +10,9 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
-app.use('/customerpayment',customerpayment);
-app.use('/service',service);
-app.use('/dependecies',dependencies);
+app.use('/media',customerpayment);
+app.use('/sales',service);
+app.use('/sales/dependencies',dependencies);
 app.use(function(req, res, next){
     var err = new Error ('Not Found');
     err.status = 404;
