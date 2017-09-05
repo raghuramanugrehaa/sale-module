@@ -3,18 +3,29 @@ var express = require('express');
 var router = express.Router();
 var async = require("async");
 var config = require('config');
-var head=require('../../utils/utils');
-router.get('/:cid',function(req, res) {
-  var cid = req.params.cid;
+var header=require('../../utils/utils');
+var accounts = {
+    details: []
+};
+var customer = {
+   details: []
+};
+var  taxcodes= {
+    details: []
+};
+router.get('/:companyid',function(req, res) {
+  var companyid = req.params.companyid;
   // create request objects
-  var requests = [{
-    url:config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/Account/",  head
-  }, {
-    url:config.get('myob.host') +"/AccountRight/"+cid+"/Customer/",head
-  },
-  {
-    url:config.get('myob.host') +"/AccountRight/"+cid+"/GeneralLedger/TaxCode",head
-  }
+  var requests = [
+    { headers:header,
+        url: config.get('myob.host') +"/AccountRight/"+companyid+"/GeneralLedger/Account/?format=json"
+    },
+    { headers:header,
+        url: config.get('myob.host') +"/AccountRight/"+companyid+"/Customer?format=json"
+    },
+    { headers:header,
+        url: config.get('myob.host') +"/AccountRight/"+companyid+"/GeneralLedger/TaxCode?format=json"
+    }
 ];
   async.map(requests, function(obj, callback) {
     // iterator function
@@ -31,8 +42,33 @@ router.get('/:cid',function(req, res) {
     // all requests have been made
     if (err) {
       // handle your error
+      console.log("checking"+err);
     } else {
-      var response = '{"Account":' +JSON.stringify(results[0]) +',"customer":' +JSON.stringify(results[1]) +',"taxcode":' +JSON.stringify(results[2]) +'}';
+
+      results[0].Items.map(function(item) {
+         accounts.details.push({
+              "Name" : item.Name,
+              "UID"  : item.UID
+
+          });
+      });
+      results[1].Items.map(function(item) {
+         customer.details.push({
+              "Name" : item.CompanyName,
+              "UID"  : item.UID
+
+          });
+      });
+      results[2].Items.map(function(item) {
+        taxcodes.details.push({
+              "Name" : item.Code,
+              "UID"  : item.UID
+
+          });
+      });
+      var response = '{"Account":' +JSON.stringify(accounts.details) +',"customer":' +JSON.stringify(customer.details) +',"taxcode":' +JSON.stringify(taxcodes.details) +'}';
+
+//console.log(taxcodes.details);
       res.send(JSON.parse(response));
     }
   });

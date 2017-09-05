@@ -2,12 +2,13 @@ var request = require('request');
 var express = require('express');
 var config = require('config');
 var router = express.Router();
-var head=require('../../utils/utils');
+var header=require('../../utils/utils');
 // Retrieve all invoices for a given company
-router.get('/:cid', function(req, res) {
-    var cid = req.params.cid;
-    var options = { headers: head,
-        url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service?format=json"
+router.get('/:companyid/invoices', function(req, res) {
+
+    var companyid = req.params.companyid;
+    var options = { headers: header,
+        url: config.get('myob.host') +"/AccountRight/"+companyid+"/Sale/Invoice/Service?format=json"
     }
     request.get(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
@@ -20,11 +21,11 @@ router.get('/:cid', function(req, res) {
 })
 
 //Retrieve a Invoice for a given company
-router.get('/:cid/invoices/:id', function(req, res) {
-    var cid = req.params.cid;
+router.get('/:companyid/invoices/:id', function(req, res) {
+    var companyid = req.params.companyid;
     var id = req.params.id;
-    var options = { headers: head,
-     url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"?format=json"
+    var options = { headers: header,
+     url: config.get('myob.host') +"/AccountRight/"+companyid+"/Sale/Invoice/Service/"+id+"?format=json"
     }
     request.get(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
@@ -38,11 +39,11 @@ router.get('/:cid/invoices/:id', function(req, res) {
 })
 
 // Create a Invoice
-router.post('/:cid/invoices',function(req, res) {
-    var cid = req.params.cid;
+router.post('/:companyid/invoices',function(req, res) {
+    var companyid = req.params.companyid;
     var requestBody = JSON.stringify(req.body);
-    var options = { headers:head,
-        url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service?format=json",
+    var options = { headers:header,
+        url: config.get('myob.host') +"/AccountRight/"+companyid+"/Sale/Invoice/Service?format=json",
         body: requestBody
     }
     request.post(options, function(error, response, body) {
@@ -56,12 +57,12 @@ router.post('/:cid/invoices',function(req, res) {
     });
 })
 
-router.put('/:cid/invoices/:id', function(req, res) {
+router.put('/:companyid/invoices/:id', function(req, res) {
     var id = req.params.id;
-    var cid = req.params.cid;
+    var companyid = req.params.companyid;
     var requestBody = JSON.stringify(req.body);
-    var options = { headers:head,
-        url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"/?format=json",
+    var options = { headers:header,
+        url: config.get('myob.host') +"/AccountRight/"+companyid+"/Sale/Invoice/Service/"+id+"/?format=json",
         body: requestBody
     }
     request.post(options, function(error, response, body) {
@@ -75,12 +76,12 @@ router.put('/:cid/invoices/:id', function(req, res) {
     });
 })
 
-router.delete('/:cid/invoices/:id', function(req, res) {
+router.delete('/:companyid/invoices/:id', function(req, res) {
     var id = req.params.id;
-    var cid = req.params.cid;
+    var companyid = req.params.companyid;
     var requestBody = JSON.stringify(req.body);
-    var options = { headers:head,
-        url: config.get('myob.host') +"/AccountRight/"+cid+"/Sale/Invoice/Service/"+id+"/?format=json",
+    var options = { headers:header,
+        url: config.get('myob.host') +"/AccountRight/"+companyid+"/Sale/Invoice/Service/"+id+"/?format=json",
         body: requestBody
     }
     request.post(options, function(error, response, body) {
