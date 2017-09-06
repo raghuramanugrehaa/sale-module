@@ -1,6 +1,6 @@
 {
 	"myob": {
-		"host": "http://localhost:8080/",
+		"host": "http://13.126.47.35:8080/",
 		"header": {
 			"accessToken": "Basic QWRtaW5pc3RyYXRvcjo=",
 			"api-version": "v2"

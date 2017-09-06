@@ -5,10 +5,10 @@ var config = require('config');
 var header=require('../../utils/utils');
 // gets the list of all the invoice that are having status opened of a company
 
-router.get('/:companyid/customerPayments', function(req, res) {
-    var companyid = req.params.companyid;
+router.get('/:companyId/customerPayments', function(req, res) {
+    var companyId = req.params.companyId;
     var options = { headers:header,
-        url: config.get('myob.host') +"/AccountRight/"+companyid+"/sale/CustomerPayment?format=json"
+        url: config.get('myob.host') +"/AccountRight/"+companyId+"/sale/CustomerPayment?format=json"
     }
 
     request.get(options, function(error, response, body) {
@@ -24,11 +24,11 @@ router.get('/:companyid/customerPayments', function(req, res) {
 })
 
 //gets total details of a invoice
-router.get('/:companyid/customerPayments/:id', function(req, res) {
-    var companyid = req.params.companyid;
+router.get('/:companyId/customerPayments/:id', function(req, res) {
+    var companyId = req.params.companyId;
     var id = req.params.id;
     var options = { headers: header,
-     url: config.get('myob.host') +"/AccountRight/"+companyid+"/Sale/CustomerPayment/"+id+"?format=json"
+     url: config.get('myob.host') +"/AccountRight/"+companyId+"/Sale/CustomerPayment/"+id+"?format=json"
     }
     request.get(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
@@ -42,12 +42,12 @@ router.get('/:companyid/customerPayments/:id', function(req, res) {
     });
 })
 
-router.post('/:companyid/customerPayments', function(req, res) {
-    var companyid = req.params.companyid;
+router.post('/:companyId/customerPayments', function(req, res) {
+    var companyId = req.params.companyId;
     var requestBody = JSON.stringify(req.body);
     console.log("Request body: "+requestBody);
     var options = { headers:header,
-        url: config.get('myob.host') +"/AccountRight/"+companyid+"/Sale/CustomerPayment?format=json",
+        url: config.get('myob.host') +"/AccountRight/"+companyId+"/Sale/CustomerPayment?format=json",
         body: requestBody
     }
     request.post(options, function(error, response, body) {
@@ -60,12 +60,12 @@ router.post('/:companyid/customerPayments', function(req, res) {
     });
 })
 
-router.delete('/:companyid/customerPayments/:id', function(req, res) {
+router.delete('/:companyId/customerPayments/:id', function(req, res) {
     var id = req.params.id;
-    var companyid = req.params.companyid;
+    var companyId = req.params.companyId;
     console.log("Request param id: "+id);
     var options = { headers:header,
-       url: config.get('myob.host') +"/AccountRight/"+companyid+"/Sale/CustomerPayment/"+id+"?format=json"
+       url: config.get('myob.host') +"/AccountRight/"+companyId+"/Sale/CustomerPayment/"+id+"?format=json"
     }
     request.delete(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');

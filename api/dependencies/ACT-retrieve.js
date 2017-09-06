@@ -13,18 +13,18 @@ var customer = {
 var  taxcodes= {
     details: []
 };
-router.get('/:companyid',function(req, res) {
-  var companyid = req.params.companyid;
+router.get('/:companyId',function(req, res) {
+  var companyId = req.params.companyId;
   // create request objects
   var requests = [
     { headers:header,
-        url: config.get('myob.host') +"/AccountRight/"+companyid+"/GeneralLedger/Account/?format=json"
+        url: config.get('myob.host') +"/AccountRight/"+companyId+"/GeneralLedger/Account/$filter=Classification eq'Bank'?format=json"
     },
     { headers:header,
-        url: config.get('myob.host') +"/AccountRight/"+companyid+"/Customer?format=json"
+        url: config.get('myob.host') +"/AccountRight/"+companyId+"/Customer?format=json"
     },
     { headers:header,
-        url: config.get('myob.host') +"/AccountRight/"+companyid+"/GeneralLedger/TaxCode?format=json"
+        url: config.get('myob.host') +"/AccountRight/"+companyId+"/GeneralLedger/TaxCode?format=json"
     }
 ];
   async.map(requests, function(obj, callback) {
@@ -66,7 +66,7 @@ router.get('/:companyid',function(req, res) {
 
           });
       });
-      var response = '{"Account":' +JSON.stringify(accounts.details) +',"customer":' +JSON.stringify(customer.details) +',"taxcode":' +JSON.stringify(taxcodes.details) +'}';
+      var response = '{"salesHeads":' +JSON.stringify(accounts.details) +',"stores":' +JSON.stringify(customer.details) +',"taxcodes":' +JSON.stringify(taxcodes.details) +'}';
 
 //console.log(taxcodes.details);
       res.send(JSON.parse(response));
