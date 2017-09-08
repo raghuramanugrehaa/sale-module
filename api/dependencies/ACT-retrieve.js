@@ -1,6 +1,7 @@
 var request = require('request');
 var express = require('express');
 var router = express.Router();
+var log=require ('../../logs/Act-retreivelogs').logs();
 var async = require("async");
 var config = require('config');
 var header=require('../../utils/utils');
@@ -9,7 +10,7 @@ var accounts = {
 };
 var customer = {
    details: []
-};
+};//sales filter active  //  and also active //wiki page // //procedure
 var  taxcodes= {
     details: []
 };
@@ -18,7 +19,7 @@ router.get('/:companyId',function(req, res) {
   // create request objects
   var requests = [
     { headers:header,
-        url: config.get('myob.host') +"/AccountRight/"+companyId+"/GeneralLedger/Account/$filter=Classification eq'Bank'?format=json"
+        url: config.get('myob.host') +"/AccountRight/"+companyId+"/GeneralLedger/Account/$filter=Classification eq'Income' and IsActive eq true?format=json"
     },
     { headers:header,
         url: config.get('myob.host') +"/AccountRight/"+companyId+"/Customer?format=json"
@@ -34,15 +35,18 @@ router.get('/:companyId',function(req, res) {
         // transform data here or pass it on
         var body = JSON.parse(body);
         callback(null, body);
+        log.info(response.statusCode);
       } else {
         callback(error || response.statusCode);
+        log.error({response:body},response.statusCode);
       }
     });
   }, function(err, results) {
     // all requests have been made
     if (err) {
       // handle your error
-      console.log("checking"+err);
+      log.error(error);
+      //console.log("checking"+err);
     } else {
 
       results[0].Items.map(function(item) {

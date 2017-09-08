@@ -2,6 +2,7 @@ var request = require('request');
 var express = require('express');
 var config = require('config');
 var router = express.Router();
+var log=require ('../../logs/sale_invoice_logs').logs();
 var header=require('../../utils/utils');
 // Retrieve all invoices for a given company
 router.get('/:companyId/invoices', function(req, res) {
@@ -13,9 +14,12 @@ router.get('/:companyId/invoices', function(req, res) {
     request.get(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
         if (!error && response.statusCode == 200) {
+            log.info({respose:body},response.statusCode);
             res.status(response.statusCode).send(body);
         } else {
+            log.error({respose:body},response.statusCode);
             res.status(response.statusCode).send(body);
+
         }
     });
 })
@@ -30,9 +34,11 @@ router.get('/:companyId/invoices/:id', function(req, res) {
     request.get(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
         if (!error && response.statusCode == 200) {
+          log.info({respose:body},response.statusCode);
             res.status(response.statusCode).send(body);
         } else {
-            console.log("failure response from Myob: "+body);
+           log.error({respose:body},response.statusCode);
+          //  console.log("failure response from Myob: "+body);
             res.status(response.statusCode).send(body);
         }
     });
@@ -50,8 +56,10 @@ router.post('/:companyId/invoices',function(req, res) {
         res.set('Content-Type', 'Application/json');
         if (!error && response.statusCode == 201) {
             res.status(response.statusCode).send(body);
+            log.info({respose:body},response.statusCode);
       } else {
-            res.status(response.statusCode).send(body);
+           log.error({respose:body},response.statusCode);
+           res.status(response.statusCode).send(body);
 
         }
     });
@@ -68,9 +76,11 @@ router.put('/:companyId/invoices/:id', function(req, res) {
     request.post(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
         if (!error && response.statusCode == 200) {
+          log.info({respose:body},response.statusCode);
             res.status(response.statusCode).send(body);
         } else {
-            console.log("failure response from Myob: "+body);
+            log.error({respose:body},response.statusCode);
+            //console.log("failure response from Myob: "+body);
             res.status(response.statusCode).send(body);
         }
     });
@@ -87,9 +97,11 @@ router.delete('/:companyId/invoices/:id', function(req, res) {
     request.post(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');
         if (!error && response.statusCode == 200) {
+            log.info({respose:body},response.statusCode);
             res.status(response.statusCode).send(body);
         } else {
-            console.log("failure response from Myob: "+body);
+            log.error({respose:body},response.statusCode);
+            //console.log("failure response from Myob: "+body);
             res.status(response.statusCode).send(body);
         }
     });
