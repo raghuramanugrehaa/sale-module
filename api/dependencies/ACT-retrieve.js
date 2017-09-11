@@ -11,21 +11,17 @@ var accounts = {
 var customer = {
    details: []
 };//sales filter active  //  and also active //wiki page // //procedure
-var  taxcodes= {
-    details: []
-};
+
 router.get('/:companyId',function(req, res) {
   var companyId = req.params.companyId;
   // create request objects
+  console.log(config.get('myob.host'));
   var requests = [
     { headers:header,
         url: config.get('myob.host') +"/AccountRight/"+companyId+"/GeneralLedger/Account/$filter=Classification eq'Income' and IsActive eq true?format=json"
     },
     { headers:header,
         url: config.get('myob.host') +"/AccountRight/"+companyId+"/Customer?format=json"
-    },
-    { headers:header,
-        url: config.get('myob.host') +"/AccountRight/"+companyId+"/GeneralLedger/TaxCode?format=json"
     }
 ];
   async.map(requests, function(obj, callback) {
@@ -45,14 +41,15 @@ router.get('/:companyId',function(req, res) {
     // all requests have been made
     if (err) {
       // handle your error
-      log.error(error);
-      //console.log("checking"+err);
+      //console.log(err);
+      console.log("checking"+err);
     } else {
-
+console.log(results);
       results[0].Items.map(function(item) {
          accounts.details.push({
               "Name" : item.Name,
-              "UID"  : item.UID
+              "UID"  : item.UID,
+              "TaxCodeUID":item.TaxCode.UID
 
           });
       });
@@ -63,14 +60,8 @@ router.get('/:companyId',function(req, res) {
 
           });
       });
-      results[2].Items.map(function(item) {
-        taxcodes.details.push({
-              "Name" : item.Code,
-              "UID"  : item.UID
 
-          });
-      });
-      var response = '{"salesHeads":' +JSON.stringify(accounts.details) +',"stores":' +JSON.stringify(customer.details) +',"taxcodes":' +JSON.stringify(taxcodes.details) +'}';
+      var response = '{"salesHeads":' +JSON.stringify(accounts.details) +',"stores":' +JSON.stringify(customer.details)+'}';
 
 //console.log(taxcodes.details);
       res.send(JSON.parse(response));
