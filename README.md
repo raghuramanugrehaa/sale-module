@@ -15,5 +15,6 @@ Step 3:
        
        
        
-  To see logs
+  To see logs go to root folder in the application and find folder "logfiles" , there you can find logs for each api
+  
 
