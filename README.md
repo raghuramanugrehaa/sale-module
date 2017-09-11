@@ -4,9 +4,7 @@ Step 1:
 Step 2:
 
 Inject configs before starting local application, set NODE_ENV=localDev. for other envs we will have another config file config folder.
-
-                                                                  or
-                                                                  
+                                                                  or                                                             
 Inject configs before starting remote application, set NODE_ENV=remoteDev. for other envs we will have another config file config folder.
 
 
