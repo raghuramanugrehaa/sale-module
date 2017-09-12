@@ -10,7 +10,7 @@ Inject configs before starting remote application, set NODE_ENV=remoteDev. for o
 
 
 Step 3: 
-       Run the application by typing 'npm start" inn command prompt
+       Run the application by typing 'npm start" in command prompt
        
   To see logs go to root folder in the application and find folder "logfiles" , there you can find logs for each api
   
