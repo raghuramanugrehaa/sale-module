@@ -1,6 +1,7 @@
 # sale-module
 Step 1:
         Install nnode_modules by typing command "node install"
+        
 Step 2:
 
 Inject configs before starting local application, set NODE_ENV=localDev. for other envs we will have another config file config folder.
