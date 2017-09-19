@@ -5,11 +5,11 @@ var router = express.Router();
 var log=require ('../../logs/sale_invoice_logs').logs();
 var header=require('../../utils/utils');
 // Retrieve all invoices for a given company
-router.get('/:companyId/invoices', function(req, res) {
+router.get('/:companyId/invoices/', function(req, res) {
 
     var companyId = req.params.companyId;
     var options = { headers: header,
-        url: "http://13.126.47.35:8080/AccountRight/"+companyId+"/Sale/Invoice/Service?format=json"
+        url: config.get('myob.host') +"/AccountRight/"+companyId+"/Sale/Invoice/Service?format=json"
     }
     request.get(options, function(error, response, body) {
         res.set('Content-Type', 'Application/json');

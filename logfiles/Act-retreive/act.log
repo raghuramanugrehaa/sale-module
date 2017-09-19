@@ -10,3 +10,5 @@
 {"name":"ACT-logs","hostname":"RaghuRam","pid":5544,"level":30,"msg":"200","time":"2017-09-11T12:15:07.880Z","v":0}
 {"name":"ACT-logs","hostname":"RaghuRam","pid":1640,"level":50,"response":"","msg":"404","time":"2017-09-11T12:22:30.567Z","v":0}
 {"name":"ACT-logs","hostname":"RaghuRam","pid":1640,"level":30,"msg":"200","time":"2017-09-11T12:22:31.498Z","v":0}
+{"name":"ACT-logs","hostname":"RaghuRam","pid":2476,"level":50,"response":"","msg":"404","time":"2017-09-12T05:38:26.660Z","v":0}
+{"name":"ACT-logs","hostname":"RaghuRam","pid":2476,"level":30,"msg":"200","time":"2017-09-12T05:38:36.068Z","v":0}
