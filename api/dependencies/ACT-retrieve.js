@@ -16,6 +16,9 @@ var  taxcodes= {
 var  salesheads= {
     details: []
 };
+var  paymentmodes= {
+    details: []
+};
 router.get('/:companyid',function(req, res) {
   var companyid = req.params.companyid;
   // create request objects
@@ -47,6 +50,29 @@ router.get('/:companyid',function(req, res) {
       // handle your error
       console.log("checking"+err);
     } else {
+
+
+     var paymentmode = [{
+                 name: "CHEQUE"
+                 },{
+                 name: "CASH"
+                },{
+                name: "EFTPOS"
+
+                },{
+                name: "MOTOR PASS"
+
+                },{
+                name: "MOTOR CHARGE"
+
+                },{
+                name: "FLEET CARD"
+
+                },{
+                name: "AMERICAN EXPRESS"
+
+                }];
+
 
 var jobs = [{
 
@@ -94,10 +120,19 @@ var jobs = [{
             });
          });
 
+       paymentmode.map(function(item){
+                paymentmodes.details.push({
+
+                     "Name":item.name
+                   });
+                });
+
+
       results[0].Items.map(function(item) {
          accounts.details.push({
               "Name" : item.Name,
-              "UID"  : item.UID
+              "UID"  : item.UID,
+              "TaxCodeUID":item.TaxCode
 
 
           });
@@ -117,10 +152,10 @@ var jobs = [{
                 });
             });
 
-      var response = '{"Account":' +JSON.stringify(accounts.details) +',"customer":' +JSON.stringify(customer.details) +',"taxcodes":'+JSON.stringify(taxcodes.details)+',"salesheads":'+JSON.stringify(salesheads.details)+'}';
+      var response = '{"Account":' +JSON.stringify(accounts.details) +',"customer":' +JSON.stringify(customer.details) +',"paymentmode":'+JSON.stringify(paymentmodes.details)+',"salesheads":'+JSON.stringify(salesheads.details)+'}';
 accounts.details=[];
 customer.details=[];
-taxcodes.details=[];
+paymentmodes.details=[];
 salesheads.details=[];
 //console.log(taxcodes.details);
       res.send(JSON.parse(response));
