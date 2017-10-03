@@ -4,6 +4,8 @@ var router = express.Router();
 var async = require("async");
 var config = require('config');
 var header=require('../../utils/utils');
+var payments=require('./paymentmode').paymentmodes;
+var jobs=require('./saleheads').sales;
 var accounts = {
     details: []
 };
@@ -52,65 +54,10 @@ router.get('/:companyid',function(req, res) {
     } else {
 
 
-     var paymentmode = [{
-                 name: "CHEQUE"
-                 },{
-                 name: "CASH"
-                },{
-                name: "EFTPOS"
-
-                },{
-                name: "MOTOR PASS"
-
-                },{
-                name: "MOTOR CHARGE"
-
-                },{
-                name: "FLEET CARD"
-
-                },{
-                name: "AMERICAN EXPRESS"
-
-                }];
+     
 
 
-var jobs = [{
 
-             name: "ACCOUNT RECV",
-             price: 0
-         },{
-
-             name: "ACCOUNT SALES",
-             price: 0
-         },{
-
-                  name: "SHOP SALES (INCL GST)",
-                  price: 0
-              },{
-
-                       name: "FUEL SALE INC GST ",
-                       price: 0
-
-                   },{
-
-                            name: "LOTTO SALES ",
-                            price: 0
-                        },{
-
-                                 name: "FUEL SALES IN LTS",
-                                 price: 0
-                             },
-                             {
-
-                               name: "LIQUOR SALES",
-                               price: 0
-                                 },
-                            {
-
-                          name: "SHOP SALES (EXCL GST)",
-                            price: 0
-
-                            }];
 
        jobs.map(function(item){
          salesheads.details.push({
@@ -120,7 +67,7 @@ var jobs = [{
             });
          });
 
-       paymentmode.map(function(item){
+       payments.map(function(item){
                 paymentmodes.details.push({
 
                      "Name":item.name

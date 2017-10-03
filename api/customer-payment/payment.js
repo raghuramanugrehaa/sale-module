@@ -4,6 +4,7 @@ var router = express.Router();
 var log=require ('../../logs/payment_logs').logs();
 var config = require('config');
 var header=require('../../utils/utils');
+
 // gets the list of all the invoice that are having status opened of a company
 
 router.get('/:companyId/customerPayments', function(req, res) {
